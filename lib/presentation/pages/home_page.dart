@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<ProductsBloc, ProductsState>(
       builder: (context, state) {
         if (state is ProductsInitial) {
-          return StateHandling.onInit();
+          return StateHandling.onLoading();
         }
 
         if (state is ProductsError) {
