@@ -30,22 +30,10 @@ class ProductsNoData extends ProductsState {
 
 class ProductsHasData extends ProductsState {
   final List<Product> result;
-  // final bool hasReachedMax;
 
   const ProductsHasData({
     required this.result,
-    // required this.hasReachedMax
   });
-
-  // ProductsHasData copyWith({
-  //   List<Product>? result,
-  //   bool? hasReachedMax,
-  // }) {
-  //   return ProductsHasData(
-  //     result: result ?? this.result,
-  //     hasReachedMax: hasReachedMax ?? this.hasReachedMax,
-  //   );
-  // }
 
   @override
   List<Object> get props => [result];

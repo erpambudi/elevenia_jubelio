@@ -45,45 +45,53 @@ class Product {
     required this.stock,
   });
 
-  final BndlDlvCnYn? bndlDlvCnYn;
-  final BndlDlvCnYn? cuponcheck;
-  final String? dispCtgrNo;
-  final String? dispCtgrStatCd;
-  final String? exchDlvCst;
-  final String? imageKindChk;
-  final String? optionAllAddPrc;
-  final BndlDlvCnYn? outsideYnIn;
-  final BndlDlvCnYn? outsideYnOut;
-  final String? prdAttrCd;
-  final String? prdNm;
-  final String? prdNo;
-  final String? prdSelQty;
-  final Yn? prdUpdYn;
-  final String? preSelPrc;
-  final BndlDlvCnYn? proxyYn;
-  final String? rtngdDlvCst;
-  final SaleEndDate? saleEndDate;
-  final String? saleStartDate;
-  final String? selLimitPersonType;
-  final String? selMnbdNckNm;
-  final String? selMthdCd;
-  final String? selPrc;
-  final String? selPrdClfCd;
-  final String? selStatCd;
-  final Yn? selTermUseYn;
-  final BndlDlvCnYn? sellerItemEventYn;
-  final dynamic sellerPrdCd;
-  final String? shopNo;
-  final String? tmpltSeq;
-  final String? validateMsg;
-  final String? nResult;
-  final String? dispCtgrNm;
-  final String? dispCtgrNmMid;
-  final String? dispCtgrNmRoot;
-  final String? dscAmt;
-  final String? dscPrice;
-  final String? freeDelivery;
-  final dynamic productOptionDetails;
-  final String? dispCtgrNo1;
-  final String? stock;
+  BndlDlvCnYn? bndlDlvCnYn;
+  BndlDlvCnYn? cuponcheck;
+  String? dispCtgrNo;
+  String? dispCtgrStatCd;
+  String? exchDlvCst;
+  String? imageKindChk;
+  String? optionAllAddPrc;
+  BndlDlvCnYn? outsideYnIn;
+  BndlDlvCnYn? outsideYnOut;
+  String? prdAttrCd;
+  String? prdNm;
+  String? prdNo;
+  String? prdSelQty;
+  Yn? prdUpdYn;
+  String? preSelPrc;
+  BndlDlvCnYn? proxyYn;
+  String? rtngdDlvCst;
+  SaleEndDate? saleEndDate;
+  String? saleStartDate;
+  String? selLimitPersonType;
+  String? selMnbdNckNm;
+  String? selMthdCd;
+  String? selPrc;
+  String? selPrdClfCd;
+  String? selStatCd;
+  Yn? selTermUseYn;
+  BndlDlvCnYn? sellerItemEventYn;
+  dynamic sellerPrdCd;
+  String? shopNo;
+  String? tmpltSeq;
+  String? validateMsg;
+  String? nResult;
+  String? dispCtgrNm;
+  String? dispCtgrNmMid;
+  String? dispCtgrNmRoot;
+  String? dscAmt;
+  String? dscPrice;
+  String? freeDelivery;
+  dynamic productOptionDetails;
+  String? dispCtgrNo1;
+  String? stock;
+
+  Product.cache({
+    this.prdNo,
+    this.prdNm,
+    this.dispCtgrNm,
+    this.prdSelQty,
+    this.selPrc,
+  });
 }
