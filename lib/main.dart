@@ -5,6 +5,7 @@ import '../injection.dart' as di;
 
 import 'common/styles/theme.dart';
 import 'common/utils/routes.dart';
+import 'presentation/bloc/cart_bloc.dart';
 import 'presentation/bloc/product_detail_bloc.dart';
 import 'presentation/bloc/products_bloc.dart';
 import 'presentation/pages/home_page.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => di.locator<ProductDetailBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<CartBloc>(),
         ),
       ],
       child: MaterialApp(
