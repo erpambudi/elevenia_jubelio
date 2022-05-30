@@ -9,7 +9,7 @@ class GetDetailProduct {
 
   GetDetailProduct(this.repository);
 
-  Future<Either<Failure, ProductDetail>> execute(int id) {
+  Future<Either<Failure, ProductDetail>> execute(String id) {
     return repository.getDetailProduct(id);
   }
 }
