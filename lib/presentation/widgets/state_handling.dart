@@ -19,7 +19,7 @@ class StateHandling {
                   color: Colors.black38,
                 ),
                 Text(
-                  'Nothing to search for now',
+                  'Nothing products',
                   style: TextStyle(
                     fontSize: 20,
                     color: MyColor.greyTextColor,
