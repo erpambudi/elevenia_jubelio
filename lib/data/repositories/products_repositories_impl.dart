@@ -45,7 +45,7 @@ class ProductsRepositoriesImpl implements ProductsRepository {
   }
 
   @override
-  Future<Either<Failure, ProductDetail>> getDetailProduct(int id) async {
+  Future<Either<Failure, ProductDetail>> getDetailProduct(String id) async {
     try {
       final result = await remoteDataSource.getDetailProduct(id);
       return Right(result.toEntity());

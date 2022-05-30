@@ -18,7 +18,7 @@ class ProductCard extends StatelessWidget {
       onTap: () {
         context
             .read<ProductDetailBloc>()
-            .add(GetDetailProductEvent(int.parse(product.prdNo ?? '0')));
+            .add(GetDetailProductEvent(product.prdNo!));
         Navigator.of(context).pushNamed(Routes.productdetailPage);
       },
       child: Container(

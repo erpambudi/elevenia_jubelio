@@ -9,7 +9,7 @@ import '../models/product_model.dart';
 
 abstract class ProductsRemoteDatasource {
   Future<List<ProductModel>> getProducts(int page);
-  Future<ProductDetailModel> getDetailProduct(int id);
+  Future<ProductDetailModel> getDetailProduct(String id);
 }
 
 class ProductsRemoteDatasourceImpl implements ProductsRemoteDatasource {
@@ -34,7 +34,7 @@ class ProductsRemoteDatasourceImpl implements ProductsRemoteDatasource {
   }
 
   @override
-  Future<ProductDetailModel> getDetailProduct(int id) async {
+  Future<ProductDetailModel> getDetailProduct(String id) async {
     final response = await http.get(Uri.parse('${Api.baseUrl}${Api.detail}$id'),
         headers: Api.headers);
 
