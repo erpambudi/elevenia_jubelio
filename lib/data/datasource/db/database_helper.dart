@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:elevenia_jubelio/data/models/product_table.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../models/cart_table.dart';
+
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;
   DatabaseHelper._instance() {
@@ -19,6 +21,7 @@ class DatabaseHelper {
   }
 
   static const String _tblCache = 'products_cache';
+  static const String _tblCart = 'cart';
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
@@ -35,6 +38,15 @@ class DatabaseHelper {
         prdNm TEXT,
         dispCtgrNm TEXT,
         prdSelQty TEXT,
+        selPrc TEXT
+      );
+    ''');
+    await db.execute('''
+      CREATE TABLE  $_tblCart (
+        prdNo TEXT PRIMARY KEY,
+        prdNm TEXT,
+        dispCtgrNm TEXT,
+        quantity INTEGER,
         selPrc TEXT
       );
     ''');
@@ -61,5 +73,51 @@ class DatabaseHelper {
   Future<int> clearProductCache() async {
     final db = await database;
     return await db!.delete(_tblCache);
+  }
+
+  Future<int> insertCartTable(CartTable cartTable) async {
+    final db = await database;
+    return await db!.insert(_tblCart, cartTable.toJson());
+  }
+
+  Future<int> removeCartTable(CartTable cartTable) async {
+    final db = await database;
+    return await db!.delete(
+      _tblCart,
+      where: 'prdNo = ?',
+      whereArgs: [cartTable.prdNo],
+    );
+  }
+
+  Future<int> updateQty(CartTable cartTable, int quantity) async {
+    final db = await database;
+    return await db!.update(
+      _tblCart,
+      {'quantity': quantity},
+      where: 'prdNo = ?',
+      whereArgs: [cartTable.prdNo],
+    );
+  }
+
+  Future<Map<String, dynamic>?> getCartTableById(String id) async {
+    final db = await database;
+    final results = await db!.query(
+      _tblCart,
+      where: 'prdNo = ?',
+      whereArgs: [id],
+    );
+
+    if (results.isNotEmpty) {
+      return results.first;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getCartData() async {
+    final db = await database;
+    final List<Map<String, dynamic>> results = await db!.query(_tblCart);
+
+    return results;
   }
 }
