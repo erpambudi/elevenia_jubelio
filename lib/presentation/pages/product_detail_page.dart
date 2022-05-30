@@ -1,10 +1,12 @@
 import 'package:elevenia_jubelio/common/styles/colors.dart';
-import 'package:elevenia_jubelio/domain/entities/product_detail.dart';
+import 'package:elevenia_jubelio/common/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
+import '../bloc/cart_bloc.dart';
 import '../bloc/product_detail_bloc.dart';
 
 class ProductDetailPage extends StatelessWidget {
@@ -43,7 +45,7 @@ class ProductDetailPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).popAndPushNamed(Routes.cartPage);
               },
               child: const SizedBox(
                 height: 50,
@@ -113,7 +115,7 @@ class ProductDetailPage extends StatelessWidget {
       );
     }
 
-    Widget _productDetail(ProductDetail product) {
+    Widget _productDetail(ProductDetailHasData state) {
       return Container(
         margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
         child: Column(
@@ -128,7 +130,7 @@ class ProductDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.prdNm ?? '-',
+                    state.product.prdNm ?? '-',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
@@ -147,7 +149,7 @@ class ProductDetailPage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        product.prdSelQty ?? '-',
+                        state.product.prdSelQty ?? '-',
                         style: const TextStyle(
                           fontSize: 12,
                           color: MyColor.blackTextColor,
@@ -162,7 +164,7 @@ class ProductDetailPage extends StatelessWidget {
                       locale: "id-ID",
                       symbol: "Rp ",
                       decimalDigits: 0,
-                    ).format(int.parse(product.selPrc ?? '0')),
+                    ).format(int.parse(state.product.selPrc ?? '0')),
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
@@ -180,7 +182,7 @@ class ProductDetailPage extends StatelessWidget {
                 color: Colors.white,
               ),
               child: HtmlWidget(
-                product.htmlDetail ?? '-',
+                state.product.htmlDetail ?? '-',
               ),
             ),
             const SizedBox(height: 10),
@@ -189,7 +191,31 @@ class ProductDetailPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               color: Colors.white,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (state.isAddedToCart) {
+                    Fluttertoast.showToast(
+                      msg: 'Product already added in cart',
+                      backgroundColor: Colors.green,
+                    );
+                  } else if (state.product.prdSelQty == '0') {
+                    Fluttertoast.showToast(
+                      msg: "Stock is empty",
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                    );
+                  } else {
+                    context
+                        .read<CartBloc>()
+                        .add(SaveCartProductEvent(state.product));
+                    context
+                        .read<ProductDetailBloc>()
+                        .add(GetDetailProductEvent(state.product.prdNo!));
+                    Fluttertoast.showToast(
+                      msg: 'Added to cart',
+                      backgroundColor: Colors.green,
+                    );
+                  }
+                },
                 child: const Text(
                   'Add to Cart',
                   style: TextStyle(
@@ -215,7 +241,7 @@ class ProductDetailPage extends StatelessWidget {
               children: [
                 _header(),
                 _imageProduct(state.product.prdImage01),
-                _productDetail(state.product),
+                _productDetail(state),
               ],
             );
           } else if (state is ProductDetailError) {
