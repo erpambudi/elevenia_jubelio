@@ -8,7 +8,7 @@ abstract class ProductDetailEvent extends Equatable {
 }
 
 class GetDetailProductEvent extends ProductDetailEvent {
-  final int id;
+  final String id;
 
   const GetDetailProductEvent(this.id);
 

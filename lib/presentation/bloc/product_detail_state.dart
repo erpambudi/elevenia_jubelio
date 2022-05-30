@@ -16,8 +16,10 @@ class ProductDetailLoading extends ProductDetailState {
 
 class ProductDetailHasData extends ProductDetailState {
   final ProductDetail product;
+  final bool isAddedToCart;
 
-  const ProductDetailHasData({required this.product});
+  const ProductDetailHasData(
+      {required this.product, required this.isAddedToCart});
 
   @override
   List<Object> get props => [product];
