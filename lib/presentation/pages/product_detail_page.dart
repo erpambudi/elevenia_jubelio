@@ -85,17 +85,17 @@ class ProductDetailPage extends StatelessWidget {
 
     Widget _imageProduct(String? imageUrl) {
       return Container(
-        height: 300,
+        height: MediaQuery.of(context).size.height / 2,
         margin: const EdgeInsets.symmetric(horizontal: 18),
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: const Color(0xFFCCCCCC),
           borderRadius: BorderRadius.circular(16),
           image: const DecorationImage(
             image: AssetImage(
               'assets/images/image_loading.png',
             ),
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
           ),
         ),
         child: imageUrl != null
@@ -246,7 +246,27 @@ class ProductDetailPage extends StatelessWidget {
             );
           } else if (state is ProductDetailError) {
             return Center(
-              child: Text(state.message),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.wifi_off,
+                    size: 100,
+                    color: MyColor.greyTextColor,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    state.message,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: MyColor.greyTextColor,
+                    ),
+                  ),
+                ],
+              ),
             );
           } else {
             return const Center(
