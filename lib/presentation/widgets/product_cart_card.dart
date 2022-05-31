@@ -177,6 +177,7 @@ class _ProductCartCardState extends State<ProductCartCard> {
                           fontSize: 16,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        maxLines: 3,
                       ),
                     ),
                     Row(
