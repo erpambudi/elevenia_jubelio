@@ -52,7 +52,7 @@ class ProductsRepositoriesImpl implements ProductsRepository {
     } on ServerException {
       return const Left(ServerFailure('Server Problem'));
     } on SocketException {
-      return const Left(ConnectionFailure('Failed to connect to the network'));
+      return const Left(ConnectionFailure('Failed connect to the network'));
     }
   }
 }
