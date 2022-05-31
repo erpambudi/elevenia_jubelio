@@ -47,28 +47,46 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
       child: Row(
         children: [
-          const Expanded(
-            child: TextField(
-              style: TextStyle(
-                color: MyColor.blackTextColor,
-              ),
-              cursorColor: MyColor.primaryColor,
-              decoration: InputDecoration(
-                hintText: 'Search Products',
-                hintStyle: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: MyColor.greyTextColor,
-                ),
-                prefixIcon: Padding(
-                  padding: EdgeInsets.all(14),
-                  child: SizedBox(
-                    width: 18,
-                    height: 18,
-                    child: Icon(Icons.search),
+          BlocBuilder<ProductsBloc, ProductsState>(
+            builder: (context, state) {
+              return Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    if (state is ProductsHasData) {
+                      Navigator.of(context).pushNamed(Routes.searchPage,
+                          arguments: state.result);
+                    }
+                  },
+                  child: Container(
+                    height: 50,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF2F3F7),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: const [
+                        Icon(
+                          Icons.search,
+                          color: MyColor.primaryColor,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Search Products',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
           const SizedBox(
             width: 14,
