@@ -1,4 +1,6 @@
+import 'package:elevenia_jubelio/domain/entities/product.dart';
 import 'package:elevenia_jubelio/presentation/pages/cart_page.dart';
+import 'package:elevenia_jubelio/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../injection.dart' as di;
@@ -44,6 +46,9 @@ class MyApp extends StatelessWidget {
           Routes.homePage: (context) => const HomePage(),
           Routes.productdetailPage: (context) => const ProductDetailPage(),
           Routes.cartPage: (context) => const CartPage(),
+          Routes.searchPage: (context) => SearchPage(
+              productsLoaded:
+                  ModalRoute.of(context)!.settings.arguments as List<Product>),
         },
       ),
     );
